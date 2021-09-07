@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
@@ -8,10 +9,13 @@ module.exports = (env, argv) => {
   return {
     entry: './src/app.js',
     output: {
-      path: path.join(__dirname, 'public'),
+      path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
-    plugins: [new MiniCssExtractPlugin({ filename: 'styles.css' })],
+    plugins: [
+      new MiniCssExtractPlugin({ filename: 'styles.css' }),
+      new webpack.ProvidePlugin({ process: 'process/browser' })
+    ],
     mode: isProduction ? 'production' : isDevelopment ? ' devlopment' : 'none',
     module: {
       rules: [
@@ -38,7 +42,8 @@ module.exports = (env, argv) => {
     devtool: isProduction ? 'source-map' : 'inline-cheap-module-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'public'),
-      historyApiFallback: true
+      historyApiFallback: true,
+      publicPath: '/dist/'
     }
   };
 };
