@@ -51,7 +51,10 @@ export class ExpenseListFilters extends Component {
         </select>
         <DateRangePicker
           startDate={this.props.filters.startDate}
+          // TODO: add a real id
+          startDateId={'start_date_id'}
           endDate={this.props.filters.endDate}
+          endDateId={'end_date_id'}
           onDatesChange={this.onDatesChange}
           focusedInput={this.state.calendarFocused}
           onFocusChange={this.onFocusChange}
