@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import database from '../firebase/firebase';
 
 // ADD_EXPENSE
@@ -32,6 +31,20 @@ export const removeExpense = ({ id } = {}) => ({
   type: 'REMOVE_EXPENSE',
   id
 });
+
+export const startRemoveExpense = ({ id } = {}) => {
+  return (dispatch) => {
+    return database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      });
+  };
+};
+
+//3. Use startRemoveExpese in EditExpensePage instead of removeExpense
+//4. Adjust Edit ExpensePage tests
 
 // EDIT_EXPENSE
 
