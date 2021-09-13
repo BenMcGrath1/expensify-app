@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,5 +23,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+googleAuthProvider.setCustomParameters({ prompt: 'select_account' });
 
-export { firebase, database as default };
+export { firebase, googleAuthProvider, database as default };
